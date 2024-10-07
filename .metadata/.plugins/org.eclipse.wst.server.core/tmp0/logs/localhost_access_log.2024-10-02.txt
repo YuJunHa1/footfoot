@@ -1,0 +1,13 @@
+127.0.0.1 - - [02/Oct/2024:18:15:59 +0900] "GET / HTTP/1.1" 404 807
+0:0:0:0:0:0:0:1 - - [02/Oct/2024:18:16:00 +0900] "GET /footfoot/login.jsp HTTP/1.1" 200 773
+0:0:0:0:0:0:0:1 - - [02/Oct/2024:18:16:00 +0900] "GET /footfoot/css/bootstrap.css HTTP/1.1" 200 146010
+0:0:0:0:0:0:0:1 - - [02/Oct/2024:18:16:00 +0900] "GET /footfoot/js/bootstrap.js HTTP/1.1" 200 69707
+0:0:0:0:0:0:0:1 - - [02/Oct/2024:18:16:01 +0900] "GET /favicon.ico HTTP/1.1" 404 818
+0:0:0:0:0:0:0:1 - - [02/Oct/2024:18:16:26 +0900] "GET /footfoot/login.jsp HTTP/1.1" 200 773
+0:0:0:0:0:0:0:1 - - [02/Oct/2024:18:16:26 +0900] "GET /favicon.ico HTTP/1.1" 404 818
+0:0:0:0:0:0:0:1 - - [02/Oct/2024:18:17:32 +0900] "GET /footfoot/login.jsp HTTP/1.1" 200 774
+0:0:0:0:0:0:0:1 - - [02/Oct/2024:18:17:32 +0900] "GET /favicon.ico HTTP/1.1" 404 818
+0:0:0:0:0:0:0:1 - - [02/Oct/2024:18:18:26 +0900] "GET /footfoot/login.jsp HTTP/1.1" 200 773
+0:0:0:0:0:0:0:1 - - [02/Oct/2024:18:18:26 +0900] "GET /footfoot/js/bootstrap.js HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [02/Oct/2024:18:18:26 +0900] "GET /footfoot/css/bootstrap.css HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [02/Oct/2024:18:18:26 +0900] "GET /favicon.ico HTTP/1.1" 404 818

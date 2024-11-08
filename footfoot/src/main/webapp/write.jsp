@@ -11,21 +11,32 @@
 <body>
 	<jsp:include page="nav.jsp" />
 	<div class="container">
-		<div class="row">
-			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
-				<thead>
-					<tr>
-						<th colspan="2" style="background-color: #eeeeee; text-align: center;;">글쓰기</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td><input type="text" class="form-control" placeholder="글 제목" name="bbsTitel" maxlength=""</td>
-					</tr>
-				</tbody>
-			</table>
-			<a href="write.jsp" class="btn btn-primary pull-right">글쓰기</a> 
+		<div class="row" action="writeAction.jsp">
+			<form method="post" action="writeAction.jsp">
+				<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
+					<thead>
+						<tr>
+							<th colspan="2" style="background-color: #eeeeee; text-align: center;;">글쓰기</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><input type="text" class="form-control" placeholder="글 제목" name="title" maxlength="30" required></td>
+						</tr>
+						<tr>
+							<td><textarea class="form-control" placeholder="글 내용" name="content" maxlength="682" style = "height: 350px;" required></textarea></td>
+						</tr>
+					</tbody>	
+				</table>
+				<input type="submit" class="btn btn-primary pull-right" value="글쓰기">
+			</form>
+			<div>
+                        <a href="matchWrite.jsp" class="btn btn-link">매치 초청</a>
+                        <a href="mercenaryWrite.jsp" class="btn btn-link">용병 구인</a>
+                    </div>
+
 		</div>
+		
 	</div>
 </body>
 </html>

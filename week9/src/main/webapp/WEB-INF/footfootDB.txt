@@ -1,0 +1,68 @@
+- user_id         : varchar(20)    [PRIMARY KEY]
+- user_name       : varchar(20)
+- user_password    : varchar(20)
+- created_at      : datetime
+- birthdate       : date
+- gender          : enum('male', 'female')
+
+2. post 테이블
+- post_id         : int            [PRIMARY KEY, AUTO_INCREMENT]
+- user_id         : varchar(20)    [FOREIGN KEY (user_id) REFERENCES user(user_id)]
+- post_type       : enum('free', 'match', 'mercenary')
+- title           : varchar(100)
+- content         : varchar(2048)
+- views           : int            [DEFAULT 0]
+- created_at      : datetime
+- updated_at      : datetime
+- deleted         : tinyint        [DEFAULT 0]
+
+3. match_post 테이블
+- post_id         : int            [PRIMARY KEY, FOREIGN KEY (post_id) REFERENCES post(post_id)]
+- match_date      : datetime
+- match_local     : int
+- location        : varchar(255)
+
+4. mercenary_post 테이블
+- post_id         : int            [PRIMARY KEY, FOREIGN KEY (post_id) REFERENCES post(post_id)]
+- team_id         : int
+- position        : smallint
+- level           : tinyint
+- match_local     : int
+- match_date      : datetime
+
+5. comment 테이블
+- comment_id      : int            [PRIMARY KEY, AUTO_INCREMENT]
+- post_id         : int            [FOREIGN KEY (post_id) REFERENCES post(post_id)]
+- user_id         : varchar(20)    [FOREIGN KEY (user_id) REFERENCES user(user_id)]
+- content         : varchar(256)
+- created_at      : datetime
+- updated_at      : datetime
+- parent_id       : int
+
+6. match_application 테이블
+- application_id   : int            [PRIMARY KEY, AUTO_INCREMENT]
+- post_id          : int            [FOREIGN KEY (post_id) REFERENCES post(post_id)]
+- applicant        : int
+- status           : tinyint
+- content          : varchar(2048)
+
+7. team 테이블
+- team_id         : int            [PRIMARY KEY, AUTO_INCREMENT]
+- team_name       : varchar(50)
+- logo_url        : varchar(512)
+- team_description : varchar(2048)
+- team_level      : tinyint
+- is_recruiting   : tinyint
+- leader_id       : int
+- meeting_day     : tinyint
+- recruit_position : smallint
+- created_at      : datetime
+- team_local      : int
+- uniform_color   : int
+
+8. team_application 테이블
+- team_application_id : int         [PRIMARY KEY, AUTO_INCREMENT]
+- team_id            : int          [FOREIGN KEY (team_id) REFERENCES team(team_id)]
+- user_id            : varchar(20)  [FOREIGN KEY (user_id) REFERENCES user(user_id)]
+- status             : tinyint
+- content            : varchar(2048)

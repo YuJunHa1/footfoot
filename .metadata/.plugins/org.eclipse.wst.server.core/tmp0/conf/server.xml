@@ -162,7 +162,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="C:\JSP\footfoot\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ROOT" path="" reloadable="false"/><Context docBase="C:\JSP\footfoot\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\footfoot" path="/footfoot" reloadable="true" source="org.eclipse.jst.jee.server:footfoot"/><Context docBase="C:\JSP\footfoot\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\week5" path="/week5" reloadable="true" source="org.eclipse.jst.jee.server:week5"/></Host>
+      <Context docBase="C:\JSP\footfoot\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ROOT" path="" reloadable="false"/><Context docBase="C:\JSP\footfoot\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\footfoot" path="/footfoot" reloadable="true" source="org.eclipse.jst.jee.server:footfoot"/><Context docBase="C:\JSP\footfoot\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\week5" path="/week5" reloadable="true" source="org.eclipse.jst.jee.server:week5"/><Context docBase="C:\JSP\footfoot\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\week10" path="/week10" reloadable="true" source="org.eclipse.jst.jee.server:week10"/></Host>
     </Engine>
   </Service>
 </Server>

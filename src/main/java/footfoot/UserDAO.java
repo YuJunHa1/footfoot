@@ -95,4 +95,21 @@ public class UserDAO {
         }
 		
 	}
+	
+	public int update(User user) {
+		String SQL = "update user set user_name = ?, user_password = ?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, user.getUser_name());
+			pstmt.setString(2, user.getUser_password());
+			return pstmt.executeUpdate();
+		}catch (SQLException e) {
+            e.printStackTrace(); // 로그
+            return -1; // DB 오류
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1; // DB 오류
+        }
+		
+	}
 }

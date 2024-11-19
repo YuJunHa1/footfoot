@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="text/html; initial-scale=1">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap.css">
 <title>footfoot</title>
 </head>
 <body>
@@ -53,6 +53,7 @@
 			%>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="navbar-text"> <%= user_name %>님, 반갑습니다!</li>
+				<li><a href="myInfo.jsp">내 정보</a></li>
 				<li><a href="logoutAction.jsp">로그아웃</a></li>	
 			</ul>
 			<%

@@ -43,6 +43,7 @@
 	<div class="container">
 		<div class="row">
 			<form method="post" action="joinTeamAction.jsp">
+			<input type="hidden" name="team_id" value="<%=team_id%>">
 				<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
 					<thead>
 						<tr>

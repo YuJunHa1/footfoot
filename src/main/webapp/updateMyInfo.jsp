@@ -37,7 +37,7 @@
 						<input type="password" class="form-control" placeholder="비밀번호 확인" name="user_password2" maxlength="20" value= "<%=user.getUser_password() %>" required>
 					</div>
 					<div class="form-group">
-    					<input type="date" class="form-control" placeholder="생년월일" name="birthdate" readonly required>
+    					<input type="date" class="form-control" placeholder="생년월일" name="birthdate" value= "<%=user.getBirthdate() %>" readonly required>
 					</div>
 					<div class="form-group">
 						<input type="text" class="form-control" placeholder="성별" name="gender" maxlength="20" value= " <%=user.getGender() %>" readonly required>

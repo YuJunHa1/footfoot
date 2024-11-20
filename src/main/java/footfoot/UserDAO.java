@@ -97,11 +97,12 @@ public class UserDAO {
 	}
 	
 	public int update(User user) {
-		String SQL = "update user set user_name = ?, user_password = ?";
+		String SQL = "update user set user_name = ?, user_password = ? where user_id = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, user.getUser_name());
 			pstmt.setString(2, user.getUser_password());
+			pstmt.setString(3, user.getUser_id());
 			return pstmt.executeUpdate();
 		}catch (SQLException e) {
             e.printStackTrace(); // 로그

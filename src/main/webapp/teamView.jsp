@@ -114,6 +114,15 @@
 				<%	
 					}
 				%>
+				
+				<%
+					if(user != null && user.getUser_id().equals(team.getLeader_id())){
+				%>
+					<a href="updateTeamInfo.jsp?team_id=<%=team_id %>" class="btn btn-primary">팀 정보 수정</a>
+					<a href="updateTeamInfo.jsp?team_id=<%=team_id %>" class="btn btn-primary">멤버 관리</a>
+				<%	
+					}
+				%>
 		</div>
 		
 	</div>

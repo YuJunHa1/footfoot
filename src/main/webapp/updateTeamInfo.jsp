@@ -34,8 +34,12 @@
 		<div class="col-lg-3"></div>
 		<div class="col-lg-6">
 			<div class="jumbotron" style="padding-top: 20px;">
-				<form method="post" action="createAction.jsp">
+				<form method="post" action="updateTeamInfoAction.jsp">
 					<h3 style="text-align: center;">팀 정보 수정</h3>
+					
+					<div class="form-group">
+					<input type="hidden" name="team_id" value="<%=team.getTeam_id()%>">
+					</div>
 					
 					<div class="form-group">
 						<input type="text" class="form-control" placeholder="팀 명" name="team_name" maxlength="15" value="<%=team.getTeam_name() %>" required>

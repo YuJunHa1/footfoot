@@ -5,6 +5,7 @@
 <%@ page import = "footfoot.TeamDAO" %>
 <%@ page import = "footfoot.User" %>
 <%@ page import = "footfoot.UserDAO" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <!DOCTYPE html>
 <html>
@@ -81,6 +82,20 @@
 							<td>팀 소개</td>
 							<td colspan="2" style="min-height: 200px; word-wrap: break-word; word-break: break-all; white-space: pre-wrap;"><%=team.getTeam_description().replaceAll(" ","&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>") %></td>
 						</tr>
+						<tr>
+							<td>멤버</td>
+							<td colspan="2">
+								<%
+									ArrayList<User> members = new TeamDAO().getMembers(team_id);
+									String member_str = "";
+									for (User member : members) {
+										member_str += member.getUser_name() + "\n";
+									}
+									System.out.println(member_str);
+								%>
+								<%= member_str%>
+							</td>
+						</tr>
 						<%
 						int recruit_position = team.getRecruit_position();
 					    if(team.getIs_recruiting().equals("모집중") && recruit_position != 0){
@@ -119,7 +134,7 @@
 					if(user != null && user.getUser_id().equals(team.getLeader_id())){
 				%>
 					<a href="updateTeamInfo.jsp?team_id=<%=team_id %>" class="btn btn-primary">팀 정보 수정</a>
-					<a href="updateTeamInfo.jsp?team_id=<%=team_id %>" class="btn btn-primary">멤버 관리</a>
+					<a href="updateMember.jsp?team_id=<%=team_id %>" class="btn btn-primary">멤버 관리</a>
 				<%	
 					}
 				%>

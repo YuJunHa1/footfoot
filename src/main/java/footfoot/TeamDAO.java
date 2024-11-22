@@ -156,5 +156,54 @@ public class TeamDAO {
 		}
 		return null;
 	}
+	
+	public int update(Team team) {
+		String SQL = "update team set team_name = ?, logo_url = ?, team_description =?, team_level =?, is_recruiting =?, "
+				+ "meeting_day =?, recruit_position =?, team_local =?  where team_id = ?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, team.getTeam_name());
+			pstmt.setString(2, team.getLogo_url());
+			pstmt.setString(3, team.getTeam_description());
+			pstmt.setString(4, team.getTeam_level());
+			pstmt.setString(5, team.getIs_recruiting());
+			pstmt.setInt(6, team.getMeeting_day());
+			pstmt.setInt(7, team.getRecruit_position());
+			pstmt.setString(8, team.getTeam_local());
+			pstmt.setInt(9, team.getTeam_id());
+			return pstmt.executeUpdate();
+		}catch (SQLException e) {
+            e.printStackTrace(); // 로그
+            return -1; // DB 오류
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1; // DB 오류
+        }
+		
+	}
+	
+	public ArrayList<User> getMembers(int team_id) {
+		String SQL = "select * from user where team_id = ?";
+		ArrayList<User> members = new ArrayList<User>();
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1,  team_id);
+			rs = pstmt.executeQuery();
+			while (rs.next()){
+				User user = new User();
+				user.setUser_id(rs.getString(1));
+				user.setUser_name(rs.getString(2));
+				user.setUser_password(rs.getString(3));
+				user.setCreated_at(rs.getTimestamp(4).toLocalDateTime());
+				user.setBirthdate(rs.getString(5));
+				user.setGender(rs.getString(6));
+				user.setTeam_id(rs.getInt(7));
+				members.add(user);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return members;
+	}
 		
 }

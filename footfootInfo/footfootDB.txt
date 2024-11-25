@@ -1,0 +1,77 @@
+Table user {
+  user_id       varchar(20) [pk]
+  user_name     varchar(20)
+  user_password varchar(20)
+  created_at    datetime
+  birthdate     date
+  gender        enum('남자', '여자')
+  team_id       int [ref: > team.team_id]
+}
+
+Table post {
+  post_id     int [pk, increment]
+  user_id     varchar(20) [ref: > user.user_id]
+  post_type   enum('free', 'match', 'mercenary')
+  title       varchar(100)
+  content     varchar(2048)
+  views       int [default: 0]
+  created_at  datetime
+  updated_at  datetime
+  deleted     tinyint [default: 0]
+}
+
+Table match_post {
+  post_id     int [pk, ref: > post.post_id]
+  match_date  datetime
+  match_local int
+  location    varchar(255)
+}
+
+Table mercenary_post {
+  post_id     int [pk, ref: > post.post_id]
+  team_id     int
+  position    smallint
+  level       tinyint
+  match_local int
+  match_date  datetime
+}
+
+Table comment {
+  comment_id  int [pk, increment]
+  post_id     int [ref: > post.post_id]
+  user_id     varchar(20) [ref: > user.user_id]
+  content     varchar(256)
+  created_at  datetime
+  updated_at  datetime
+  parent_id   int
+}
+
+Table match_application {
+  application_id int [pk, increment]
+  post_id        int [ref: > post.post_id]
+  applicant      int
+  status         tinyint
+  content        varchar(2048)
+}
+
+Table team {
+  team_id          int [pk, increment]
+  team_name        varchar(50)
+  logo_url         varchar(512)
+  team_description varchar(2048)
+  team_level       varchar(10)
+  is_recruiting    enum('모집중', '모집완료')
+  leader_id        int
+  meeting_day      tinyint
+  recruit_position smallint
+  created_at       datetime
+  team_local       enum('서울특별시 등')
+}
+
+Table team_application {
+  team_application_id int [pk, increment]
+  team_id             int [ref: > team.team_id]
+  user_id             varchar(20) [ref: > user.user_id]
+  status              tinyint
+  content             varchar(2048)
+}

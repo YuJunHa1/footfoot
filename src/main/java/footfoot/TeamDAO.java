@@ -2,6 +2,7 @@ package footfoot;
 import java.time.LocalDateTime;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class TeamDAO {
 	private Connection conn;
@@ -204,6 +205,73 @@ public class TeamDAO {
 			e.printStackTrace();
 		}
 		return members;
+	}
+	
+	public ArrayList<Team_application> getApplicant(int team_id) {
+		String SQL = "SELECT * FROM team_application where team_id = ? and status = 0";
+		ArrayList<Team_application> applicants = new ArrayList<Team_application>();
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1,  team_id);
+			rs = pstmt.executeQuery();
+			while (rs.next()){
+				Team_application application = new Team_application();
+				application.setTeam_application_id(rs.getInt(1));
+				application.setTeam_id(rs.getInt(2));
+				application.setUser_id(rs.getString(3));
+				application.setStatus(rs.getInt(4));
+				application.setContent(rs.getString(5));
+	            applicants.add(application);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return applicants;
+	}
+	
+	public int approve(String user_id, int team_id) {
+	    String updateUserSQL = "UPDATE user SET team_id = ? WHERE user_id = ?";
+	    String updateApplicationSQL = "UPDATE team_application SET status = 1 WHERE user_id = ?";
+	    
+	    try {
+	        // 트랜잭션 시작
+	        conn.setAutoCommit(false);
+
+	        // 첫 번째 SQL 실행 (user 테이블 업데이트)
+	        PreparedStatement pstmt1 = conn.prepareStatement(updateUserSQL);
+	        pstmt1.setInt(1, team_id);
+	        pstmt1.setString(2, user_id);
+	        pstmt1.executeUpdate();
+
+	        // 두 번째 SQL 실행 (team_application 테이블 업데이트)
+	        PreparedStatement pstmt2 = conn.prepareStatement(updateApplicationSQL);
+	        pstmt2.setString(1, user_id);
+	        pstmt2.executeUpdate();
+
+	        // 성공적으로 두 SQL이 실행되면 커밋
+	        conn.commit();
+
+	        // 트랜잭션 정상 처리 후 반환
+	        return 1;
+	    } catch (SQLException e) {
+	        e.printStackTrace(); // 로그 출력
+
+	        // 오류 발생 시 롤백
+	        try {
+	            conn.rollback();
+	        } catch (SQLException rollbackEx) {
+	            rollbackEx.printStackTrace();
+	        }
+
+	        return -1; // DB 오류
+	    } finally {
+	        // 트랜잭션 종료 후 자동 커밋 복구
+	        try {
+	            conn.setAutoCommit(true);
+	        } catch (SQLException autoCommitEx) {
+	            autoCommitEx.printStackTrace();
+	        }
+	    }
 	}
 		
 }

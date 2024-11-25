@@ -1,3 +1,5 @@
+<%@page import="footfoot.User"%>
+<%@page import="footfoot.TeamDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.io.PrintWriter" %>
@@ -17,7 +19,7 @@
 	<%
 		int team_id = 0;
 		if (request.getParameter("team_id") != null){
-			team_id = Integer.parseInt(request.getParameter("pageNumber"));
+			team_id = Integer.parseInt(request.getParameter("team_id"));
 		}
 		if(team_id == 0){
 			PrintWriter script = response.getWriter();
@@ -33,43 +35,85 @@
 			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
 				<thead>
 					<tr>
-						<th style="background-color: #eeeeee; text-align: center;;">제목</th>
-						<th style="background-color: #eeeeee; text-align: center;;">작성자</th>
-						<th style="background-color: #eeeeee; text-align: center;;">작성일</th>
+						<th style="background-color: #eeeeee; text-align: center;;">이름</th>
+						<th style="background-color: #eeeeee; text-align: center;;">나이</th>
+						<th style="background-color: #eeeeee; text-align: center;;">성별</th>
+						<th colspan="2" style="background-color: #eeeeee; text-align: center;;">수정</th>
 					</tr>
 				</thead>
 				<tbody>
 					<%
-						PostDAO postDAO = new PostDAO();
-						ArrayList<Post> list = postDAO.getList(pageNumber);
+						TeamDAO teamDAO = new TeamDAO();
+						ArrayList<User> members = teamDAO.getMembers(team_id);
 						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-						for (Post post : list) {
+						for (User member : members) {
 					%>
 						<tr>
-							<td><a href="view.jsp?post_id=<%=post.getPost_id()%>"><%=post.getTitle() %></a></td>
-							<td><%=post.getUser_id() %></td>
-							<td><%=post.getCreated_at().format(formatter) %></td>
+							<td><%=member.getUser_name() %></td>
+							<td><%=member.getBirthdate() %></td>
+							<td><%=member.getGender() %></td>
+							<td colspan="2">
+							<a onclick="return confirm('<%=member.getUser_name() %> 님을 리더로 지정하시겠습니까?')" href="deleteAction.jsp?post_id" class="btn btn-primary">리더 위임</a>
+							<a onclick="return confirm('<%=member.getUser_name() %> 님을 팀에서 추방하시겠습니까?')" href="deleteAction.jsp" class="btn btn-primary">추방</a>
+							</td>
 						</tr>
 					<%
 						}
 					%>
 				</tbody>
 			</table>
-			<div class="text-center">
-				<%
-					if (pageNumber != 1) {
-				%>
-					<a href="post.jsp?pageNumber=<%=pageNumber - 1 %>" class="btn btn-success">이전</a>
-				<%
-					} 
-					if (postDAO.nextPage(pageNumber + 1)) {
-				%>
-					<a href="post.jsp?pageNumber=<%=pageNumber + 1 %>" class="btn btn-success">다음</a>
-				<%
-					}
-				%>
-			</div>
-			<a href="write.jsp" class="btn btn-primary pull-right">글쓰기</a> 
+				<!-- 가입 신청 목록 버튼 -->
+				<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#joinRequestModal" onclick="loadApplicant(<%=team_id %>)">가입 신청 목록</a>
+				
+				<!-- 모달 -->
+				<div id="joinRequestModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				    <div class="modal-dialog modal-lg" role="document">
+				        <div class="modal-content">
+				            <div class="modal-header">
+				                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				                    <span aria-hidden="true">&times;</span>
+				                </button>
+				                <h4 class="modal-title" id="myModalLabel">가입 신청 목록</h4>
+				            </div>
+				            <div class="modal-body">
+				                <table class="table table-striped">
+				                    <thead>
+				                        <tr>
+				                            <th>이름</th>
+				                            <th>나이</th>
+				                            <th>성별</th>
+				                            <th>지원 메세지</th>
+				                            <th>승인</th>
+				                        </tr>
+				                    </thead>
+				                    <tbody id="applicantList">
+				                        <!-- 가입 신청 목록 데이터가 여기에 로드됨 -->
+				                    </tbody>
+				                </table>
+				            </div>
+				            <div class="modal-footer">
+				                <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+				            </div>
+				        </div>
+				    </div>
+				</div>
+				
+				<script>
+				    function loadApplicant(team_id) {
+				        $.ajax({
+				            url: 'getApplicant.jsp', // 가입 신청 데이터를 가져오는 JSP 파일
+				            type: 'GET',
+				            data: { team_id: team_id },
+				            success: function(data) {
+				                // 데이터 로드 성공 시, 모달에 데이터 삽입
+				                $('#applicantList').html(data);
+				            },
+				            error: function() {
+				                alert('가입 신청 목록을 불러오는데 실패했습니다.');
+				            }
+				        });
+				    }
+				</script>
 		</div>
 	</div>
 </body>

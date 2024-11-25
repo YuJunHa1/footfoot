@@ -31,8 +31,8 @@
 				<input type="submit" class="btn btn-primary pull-right" value="글쓰기">
 			</form>
 			<div>
-                        <a href="matchWrite.jsp" class="btn btn-link">매치 초청</a>
-                        <a href="mercenaryWrite.jsp" class="btn btn-link">용병 구인</a>
+                        <a href="WriteMatch.jsp" class="btn btn-link">매치 초청</a>
+                        <a href="writeMercenary.jsp" class="btn btn-link">용병 구인</a>
                     </div>
 
 		</div>
